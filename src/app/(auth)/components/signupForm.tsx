@@ -7,7 +7,6 @@ import {signup, isUsernameAvailable} from "@/_actions/auth";
 import {useRouter} from "next/navigation";
 import Link from "next/link";
 import {Loader2} from "lucide-react";
-import {uploadImage} from "@/utils/uploadImage";
 import {UploadButton} from "@/utils/uploadthing";
 
 const signupFormSchema = z.object({
