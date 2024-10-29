@@ -3,6 +3,7 @@ import Link from 'next/link';
 import {getAllUsers} from "@/_actions/admin";
 import {format} from "date-fns"
 import {Logout} from "@/components/buttons";
+import DateDisplay from "@/components/ClientDateTimeDisplay";
 
 const AdminUsersPage = async () => {
     const [users, error] = await getAllUsers();
@@ -69,7 +70,7 @@ const AdminUsersPage = async () => {
                                         </span>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    {format(new Date(user.createdAt), "dd MMM yyyy - HH:MM aa")}
+                                    <DateDisplay datetime={new Date(user.createdAt)} />
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                     <Link href={`/admin/edit/${user.id}`}>
@@ -108,21 +109,23 @@ const AdminUsersPage = async () => {
                             </div>
                             <div className="border-t border-gray-200 px-4 py-5 sm:p-0">
                                 <dl className="sm:divide-y sm:divide-gray-200">
-                                    {[
-                                        {label: 'Email', value: user.email},
-                                        {label: 'Role', value: user.isAdmin ? 'Admin' : 'User'},
-                                        {
-                                            label: 'Created At',
-                                            // value: user.createdAt
-                                            value: format(new Date(user.createdAt), "dd MMM yyyy - HH:MM aa")
-                                        },
-                                    ].map((item) => (
-                                        <div key={item.label}
-                                             className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                            <dt className="text-sm font-medium text-gray-500">{item.label}</dt>
-                                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{item.value}</dd>
-                                        </div>
-                                    ))}
+                                    <div key={'Email'}
+                                         className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                        <dt className="text-sm font-medium text-gray-500">{"Email"}</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{user.email}</dd>
+                                    </div>
+                                    <div key={'Role'}
+                                         className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                        <dt className="text-sm font-medium text-gray-500">{"Role"}</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{user.isAdmin ? 'Admin' : 'User'}</dd>
+                                    </div>
+                                    <div key={'Created At'}
+                                         className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                        <dt className="text-sm font-medium text-gray-500">{"Role"}</dt>
+                                        <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                            <DateDisplay datetime={new Date(user.createdAt)}/>
+                                        </dd>
+                                    </div>
                                 </dl>
                             </div>
                             <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
